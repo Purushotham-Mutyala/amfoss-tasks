@@ -1,0 +1,56 @@
+def read_number_from_file(file_path)
+  begin
+    
+    File.read(file_path).strip.to_i
+  rescue Errno::ENOENT
+    puts "Error: '#{file_path}' not found."
+    exit
+  rescue ArgumentError
+    puts "Error: File content is not a valid number."
+    exit
+  end
+end
+
+def generate_diamond(n)
+  return "" if n <= 0
+
+  diamond = ""
+
+  
+  (0...n).each do |i|
+    spaces = ' ' * (n - i - 1)
+    stars = '*' * (2 * i + 1)
+    diamond += "#{spaces}#{stars}\n"
+  end
+
+  
+  (n - 2).downto(0) do |i|
+    spaces = ' ' * (n - i - 1)
+    stars = '*' * (2 * i + 1)
+    diamond += "#{spaces}#{stars}\n"
+  end
+
+  diamond
+end
+
+def write_to_file(file_path, content)
+  begin
+    File.write(file_path, content)
+    puts "Diamond pattern successfully written to '#{file_path}'."
+  rescue IOError => e
+    puts "Error writing to file: #{e.message}"
+  end
+end
+
+
+input_file_path = 'input.txt'
+output_file_path = 'output.txt'
+
+
+n = read_number_from_file(input_file_path)
+
+
+diamond_pattern = generate_diamond(n)
+
+
+write_to_file(output_file_path, diamond_pattern)
