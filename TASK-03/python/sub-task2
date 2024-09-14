@@ -1,0 +1,6 @@
+file1=open('input.txt','r')
+file2=open('output.txt','w')
+file2.write(file1.read())
+file2.close()
+file2=open('output.txt','r')
+print(file2.read())
