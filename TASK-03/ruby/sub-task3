@@ -1,0 +1,28 @@
+def print_diamond(n)
+  
+  if n <= 0
+    puts "Please enter a positive integer."
+    return
+  end
+
+ 
+  (0...n).each do |i|
+    spaces = ' ' * (n - i - 1)
+    stars = '*' * (2 * i + 1)
+    puts "#{spaces}#{stars}"
+  end
+
+ 
+  (n - 2).downto(0) do |i|
+    spaces = ' ' * (n - i - 1)
+    stars = '*' * (2 * i + 1)
+    puts "#{spaces}#{stars}"
+  end
+end
+
+
+print "Enter the size of the diamond (n): "
+n = gets.to_i
+
+
+print_diamond(n)
