@@ -1,0 +1,55 @@
+def read_number_from_file(filename):
+   
+    with open(filename, 'r') as file:
+        
+        return int(file.readline().strip())
+
+def generate_diamond(n):
+   
+    if n <= 0:
+        return []
+    
+    diamond = []
+
+   
+    for i in range(n):
+       
+        spaces = ' ' * (n - i - 1)
+        
+        stars = '*' * (2 * i + 1)
+        
+        diamond.append(spaces + stars + spaces)
+
+    
+    for i in range(n - 2, -1, -1):
+        
+        spaces = ' ' * (n - i - 1)
+        
+        stars = '*' * (2 * i + 1)
+        
+        diamond.append(spaces + stars + spaces)
+
+    return diamond
+
+def write_diamond_to_file(filename, diamond):
+    """Writes the diamond pattern to a file."""
+    with open(filename, 'w') as file:
+        file.write('\n'.join(diamond))
+
+def main():
+    input_filename = 'input.txt'
+    output_filename = 'output.txt'
+    
+   
+    n = read_number_from_file(input_filename)
+    
+  
+    diamond = generate_diamond(n)
+    
+  
+    write_diamond_to_file(output_filename, diamond)
+    
+    print(f"Diamond pattern of size {n} has been written to {output_filename}.")
+
+if __name__ == "__main__":
+    main()
