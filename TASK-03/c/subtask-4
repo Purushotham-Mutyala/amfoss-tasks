@@ -1,0 +1,65 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+void generate_diamond(FILE *output_file, int n) {
+    if (n <= 0) {
+        fprintf(output_file, "Invalid number. Must be greater than 0.\n");
+        return;
+    }
+
+    
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            fprintf(output_file, " ");
+        }
+        for (int j = 0; j < 2 * i + 1; j++) {
+            fprintf(output_file, "*");
+        }
+        fprintf(output_file, "\n");
+    }
+
+    
+    for (int i = n - 2; i >= 0; i--) {
+        for (int j = 0; j < n - i - 1; j++) {
+            fprintf(output_file, " ");
+        }
+        for (int j = 0; j < 2 * i + 1; j++) {
+            fprintf(output_file, "*");
+        }
+        fprintf(output_file, "\n");
+    }
+}
+
+int main() {
+    FILE *input_file = fopen("input.txt", "r");
+    FILE *output_file = fopen("output.txt", "w");
+    
+    if (input_file == NULL) {
+        perror("Error opening input file");
+        return EXIT_FAILURE;
+    }
+    
+    if (output_file == NULL) {
+        perror("Error opening output file");
+        fclose(input_file);
+        return EXIT_FAILURE;
+    }
+    
+    int n;
+    if (fscanf(input_file, "%d", &n) != 1) {
+        fprintf(stderr, "Error reading the number from input.txt\n");
+        fclose(input_file);
+        fclose(output_file);
+        return EXIT_FAILURE;
+    }
+    
+    fclose(input_file);
+    
+    
+    generate_diamond(output_file, n);
+    
+    fclose(output_file);
+    
+    return EXIT_SUCCESS;
+}
