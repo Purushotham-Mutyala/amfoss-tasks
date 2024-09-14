@@ -1,0 +1,31 @@
+use std::fs::File;
+use std::io::{self, BufRead, Write};
+use std::path::Path;
+
+fn main() -> io::Result<()> {
+    
+    let input_path = "input.txt";
+    let output_path = "output.txt";
+
+    
+    let input_file = File::open(input_path)?;
+    let reader = io::BufReader::new(input_file);
+
+    
+    let mut input_string = String::new();
+    for line in reader.lines() {
+        input_string.push_str(&line?);
+        
+        input_string.push('\n');
+    }
+
+    
+    let mut output_file = File::create(output_path)?;
+
+    
+    output_file.write_all(input_string.as_bytes())?;
+
+    println!("Successfully copied the content from '{}' to '{}'.", input_path, output_path);
+
+    Ok(())
+}
